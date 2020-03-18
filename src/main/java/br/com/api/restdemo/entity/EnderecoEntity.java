@@ -1,14 +1,10 @@
 package br.com.api.restdemo.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -37,14 +33,6 @@ public class EnderecoEntity {
 	
 	@Column(nullable = false, length = 2)
 	private String UF;
-		
-	
-	@JoinTable(name = "TB_PESSOA_X_TB_ENDERECO", 
-	    	joinColumns = {@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")}, 
-			inverseJoinColumns = {@JoinColumn(name = "id_pessoa", referencedColumnName = "id_pessoa")})
-	
-	        @ManyToOne(cascade ={  CascadeType.PERSIST, CascadeType.MERGE })
-			private PessoaEntity pessoas;
 
 	public long getId() {
 		return id;
@@ -94,14 +82,5 @@ public class EnderecoEntity {
 		UF = uF;
 	}
 
-	public PessoaEntity getPessoas() {
-		return pessoas;
-	}
-
-	public void setPessoas(PessoaEntity l) {
-		this.pessoas = l;
-	}
-	 
-	 
 	
 }

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.restdemo.entity.EnderecoEntity;
-import br.com.api.restdemo.entity.PessoaEntity;
 import br.com.api.restdemo.repository.EnderecoRepository;
 import br.com.api.restdemo.repository.PessoaRepository;
 
@@ -68,8 +67,6 @@ public class EnderecoController {
 	@PutMapping(value = "/endereco/{id}")
 	public ResponseEntity<EnderecoEntity> Put(@PathVariable(value = "id")long id, @Valid @RequestBody EnderecoEntity newEnderecoEntity){
 		Optional<EnderecoEntity> oldEndereco = _enderecoRepository.findById(id);
-		PessoaEntity pessoaEntity = new PessoaEntity();
-		Optional<PessoaEntity> oldPessoa = _pessoaRepository.findById(pessoaEntity.getId());
 		if(oldEndereco.isPresent()){
 			EnderecoEntity endereco = oldEndereco.get();
 			endereco.setLogradouro(newEnderecoEntity.getLogradouro());
@@ -77,7 +74,6 @@ public class EnderecoController {
 			endereco.setCidade(newEnderecoEntity.getCidade());
 			endereco.setCep(newEnderecoEntity.getCep());
 			endereco.setUF(newEnderecoEntity.getUF());
-			endereco.setPessoas(oldPessoa.get());
 			_enderecoRepository.save(endereco);
 			return new ResponseEntity<EnderecoEntity>(endereco, HttpStatus.OK);	
 		}
